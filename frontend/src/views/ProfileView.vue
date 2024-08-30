@@ -30,12 +30,18 @@
               Изменить дату рождения
           </button>
           <button 
+              v-else 
+              @click="openTelegramBot"
+              class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 ease-in-out mb-3"
+          >
+              Перейти в бот
+          </button>
+          <button 
               @click="shareProfile"
               class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 ease-in-out"
           >
               Поделиться данными
           </button>
-          
       </div>
     </div>
   </div>
@@ -110,6 +116,10 @@ const shareProfile = () => {
   const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(profileUrl)}&text=${encodeURIComponent(message)}`
   window.open(tgUrl, '_blank');
 };
+
+function openTelegramBot() {
+    window.open(`https://t.me/mikholand_bot?start`);
+}
 </script>
 
 
