@@ -33,7 +33,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-import { useWebApp } from 'vue-tg'
+import { useWebApp, useWebAppViewport } from 'vue-tg'
 
 export default defineComponent({
   props: {
@@ -43,7 +43,9 @@ export default defineComponent({
     },
   },
   setup() {
+    useWebAppViewport().expand();
     const router = useRouter();
+    const startParam = useWebApp().initDataUnsafe.start_param;
     const userId = useWebApp().initDataUnsafe.user.id;
     const fromEdit = router.currentRoute.value.query.fromEdit;
 
@@ -66,8 +68,6 @@ export default defineComponent({
     });
 
     onMounted(async () => {
-      console.log("fromEdit:", fromEdit);
-
       if (userId) {
         try {
           const response = await axios.get(`/api/user_data/${userId}`);
@@ -84,6 +84,11 @@ export default defineComponent({
           alert("Error");
           console.error("Ошибка при получении данных пользователя:", error);
         }
+      }
+
+      if (startParam) {
+        router.push(`/profile/${startParam}`);
+        return;
       }
 
       if (!fromEdit && user.value && user.value.birthdate) {

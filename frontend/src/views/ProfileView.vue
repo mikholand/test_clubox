@@ -46,7 +46,7 @@
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRoute, useRouter } from 'vue-router';
-import { useWebApp } from 'vue-tg'
+import { useWebApp, useWebAppViewport } from 'vue-tg'
 
 const route = useRoute();
 const router = useRouter();
@@ -56,6 +56,8 @@ const timeLeft = ref('');
 const currentUserId = useWebApp().initDataUnsafe.user.id.toString();
 const isOwner = ref(false);
 const isLoading = ref(true);
+
+useWebAppViewport().expand();
 
 onMounted(async () => {
   const userId = route.params.user_id;
@@ -102,7 +104,7 @@ const changeBirthdate = () => {
 
 const shareProfile = () => {
   const userId = route.params.user_id;
-  const profileUrl = `https://t.me/mikholand_bot?start=${userId}`;
+  const profileUrl = `https://t.me/mikholand_bot/profiles?startapp=${userId}`;
   const message = `Посмотри мой профиль!`;
 
   const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(profileUrl)}&text=${encodeURIComponent(message)}`
