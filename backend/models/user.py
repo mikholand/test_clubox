@@ -1,12 +1,12 @@
 """Модуль моделей для приложения."""
-
+from core.constants import (
+    MAX_LENGTH_FIRST_NAME,
+    MAX_LENGTH_LAST_NAME,
+    MAX_LENGTH_PHOTO,
+    MAX_LENGTH_USERNAME,
+)
 from tortoise import fields, models
-
-# Constants for field lengths
-MAX_LENGTH_FIRST_NAME = 255
-MAX_LENGTH_LAST_NAME = 255
-MAX_LENGTH_USERNAME = 50
-MAX_LENGTH_PHOTO = 127
+from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class User(models.Model):
@@ -32,3 +32,6 @@ class User(models.Model):
         """Meta информация для модели User."""
 
         table = 'users'
+
+
+User_Pydantic = pydantic_model_creator(User, name='User')

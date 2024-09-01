@@ -33,7 +33,7 @@ async def send_user_data(user_data: dict) -> Optional[str]:
     """
     async with get_session() as session:
         try:
-            async with session.post('{0}/api/user_data'.format(NGROK_URL), json=user_data) as response:
+            async with session.post('{0}/api/user/user_data'.format(NGROK_URL), json=user_data) as response:
                 response_text = await response.text()
                 if response.status == HTTP_OK:
                     return response_text
@@ -55,7 +55,7 @@ async def fetch_user_data(user_id: str) -> Optional[Dict[str, Any]]:
     """
     async with get_session() as session:
         try:
-            async with session.get('{0}/api/user_data/{1}'.format(NGROK_URL, user_id)) as response:
+            async with session.get('{0}/api/user/user_data/{1}'.format(NGROK_URL, user_id)) as response:
                 if response.status == HTTP_OK:
                     return await response.json()
                 logger.error('Ошибка при получении данных пользователя: {0}'.format(response.status))

@@ -70,7 +70,7 @@ export default defineComponent({
     onMounted(async () => {
       if (userId) {
         try {
-          const response = await axios.get(`/api/user_data/${userId}`);
+          const response = await axios.get(`/api/user/user_data/${userId}`);
           console.log("Response data:", response.data);
           user.value = response.data;
 
@@ -104,7 +104,7 @@ export default defineComponent({
         const formattedMonth = currentMonth.value.toString().padStart(2, '0');
         const formattedDay = currentDay.value.toString().padStart(2, '0');
         const birthdate = `${currentYear.value}-${formattedMonth}-${formattedDay}`;
-        await axios.post('/api/save_birthdate/', {
+        await axios.post('/api/user/save_birthdate/', {
           user_id: userId,
           birthdate: birthdate
         });
